@@ -1,0 +1,106 @@
+:root {
+  --skywings-blue: #0284c7;
+  --skywings-navy: #0f172a;
+  --skywings-orange: #f97316;
+}
+
+body {
+  color: var(--skywings-navy);
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  background-color: #f8fafc;
+  margin: 0;
+  padding: 0;
+}
+
+/* Thanh điều hướng */
+.navbar-brand {
+  color: var(--skywings-navy);
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+}
+
+.brand-mark {
+  color: var(--skywings-blue);
+}
+
+/* Khu vực Banner chính (Hero Section) có hình nền máy bay */
+.hero {
+  min-height: 580px;
+  padding: 5rem 1rem 6rem;
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.75) 0%, rgba(2, 132, 199, 0.65) 100%), 
+              url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=1920&q=80') no-repeat center center;
+  background-size: cover;
+  color: white;
+  text-align: center;
+}
+
+.hero-title {
+  font-size: clamp(2.2rem, 5vw, 3.8rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  margin-bottom: 1rem;
+}
+
+.hero-subtitle {
+  font-size: 1.1rem;
+  color: #e2e8f0;
+  margin-bottom: 2.5rem;
+}
+
+/* Khung tìm kiếm vé (Search Card) nổi bật */
+.search-card {
+  background: white;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 1.25rem;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  padding: 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: left;
+  color: #1e293b;
+}
+
+.form-label {
+  color: #475569;
+  font-size: 0.875rem;
+  font-weight: 600;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.form-control {
+  width: 100%;
+  min-height: 3.25rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 0.75rem;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+.form-control:focus {
+  border-color: var(--skywings-blue);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
+}
+
+/* Nút tìm kiếm */
+.btn-skywings {
+  width: 100%;
+  min-height: 3.25rem;
+  background-color: var(--skywings-orange);
+  border: none;
+  border-radius: 0.75rem;
+  color: white;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.btn-skywings:hover {
+  background-color: #ea580c;
+  transform: translateY(-1px);
+}
