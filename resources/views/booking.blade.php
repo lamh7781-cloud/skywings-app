@@ -11,10 +11,11 @@
                 <h1 class="h2 fw-bold mb-4">Thông tin chuyến bay</h1>
                 <div class="card search-card border-0">
                     <div class="card-body p-4">
-                        <h2 class="h5 fw-bold mb-3">{{ $flight->flight_name }}</h2>
-                        <p class="mb-1"><strong>Hành trình:</strong> {{ $flight->departure }} → {{ $flight->destination }}</p>
-                        <p class="mb-1"><strong>Ngày bay:</strong> {{ $flight->flight_date->format('d/m/Y') }}</p>
+                        <h2 class="h5 fw-bold mb-3">{{ $flight->flight_number }}</h2>
+                        <p class="mb-1"><strong>Hành trình:</strong> {{ $flight->origin }} → {{ $flight->destination }}</p>
+                        <p class="mb-1"><strong>Ngày bay:</strong> {{ $flight->departure_time->format('d/m/Y H:i') }}</p>
                         <p class="mb-0"><strong>Giá vé:</strong> {{ number_format((float) $flight->price, 0, ',', '.') }}đ</p>
+                        <p class="mb-0"><strong>Hạng ghế:</strong> {{ $flight->cabin_class }}</p>
                     </div>
                 </div>
                 <div class="card border-0 shadow-sm mt-4">

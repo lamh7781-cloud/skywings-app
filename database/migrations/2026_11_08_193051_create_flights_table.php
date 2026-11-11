@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('flights', function (Blueprint $table) {
             $table->id();
-            $table->string('flight_name');
-            $table->string('departure');
-            $table->string('destination');
-            $table->date('flight_date');
+            $table->string('flight_number')->unique(); // Đổi thành mã chuyến bay, không cho trùng lặp
+            $table->string('origin');                  // Đổi departure thành origin (Điểm đi) cho chuẩn thuật ngữ
+            $table->string('destination');             // Điểm đến
+            $table->dateTime('departure_time');        // Lưu cả ngày và giờ cất cánh
             $table->decimal('price', 10, 2);
             $table->timestamps();
         });

@@ -18,16 +18,32 @@
                 <div class="card-body">
                     <div class="row g-3 align-items-end">
                         <div class="col-md-4">
-                            <label class="form-label" for="departure">Điểm đi</label>
-                            <input class="form-control" id="departure" name="departure" value="{{ request('departure') }}">
+                            <label class="form-label" for="origin">Điểm đi</label>
+                            <input class="form-control" id="origin" name="origin" value="{{ request('origin') }}">
                         </div>
                         <div class="col-md-4">
                             <label class="form-label" for="destination">Điểm đến</label>
                             <input class="form-control" id="destination" name="destination" value="{{ request('destination') }}">
                         </div>
                         <div class="col-md-3">
-                            <label class="form-label" for="flight_date">Ngày đi</label>
-                            <input class="form-control" id="flight_date" name="flight_date" type="date" value="{{ request('flight_date') }}">
+                            <label class="form-label" for="departure_date">Ngày đi</label>
+                            <input class="form-control" id="departure_date" name="departure_date" type="date" value="{{ request('departure_date') }}">
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label" for="passengers">Hành khách</label>
+                            <select class="form-select" id="passengers" name="passengers">
+                                @for ($count = 1; $count <= 9; $count++)
+                                    <option value="{{ $count }}" @selected((int) request('passengers', 1) === $count)>{{ $count }} hành khách</option>
+                                @endfor
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label" for="cabin_class">Hạng ghế</label>
+                            <select class="form-select" id="cabin_class" name="cabin_class">
+                                @foreach (['economy' => 'Phổ thông', 'premium_economy' => 'Phổ thông đặc biệt', 'business' => 'Thương gia', 'first' => 'Hạng nhất'] as $value => $label)
+                                    <option value="{{ $value }}" @selected(request('cabin_class', 'economy') === $value)>{{ $label }}</option>
+                                @endforeach
+                            </select>
                         </div>
                         <div class="col-md-1 d-grid">
                             <button class="btn btn-primary" type="submit">Lọc</button>
@@ -45,11 +61,12 @@
                             <div class="card-body p-4">
                                 <div class="row align-items-center g-3">
                                     <div class="col-12 col-md-3">
-                                        <p class="text-secondary small mb-1">{{ $flight->flight_name }}</p>
-                                        <p class="fw-bold mb-0">{{ $flight->flight_date->format('d/m/Y') }}</p>
+                                        <p class="text-secondary small mb-1">{{ $flight->flight_number }}</p>
+                                        <p class="fw-bold mb-0">{{ $flight->departure_time->format('d/m/Y H:i') }}</p>
+                                        <p class="small text-secondary mb-0">{{ $flight->cabin_class }} · {{ $flight->seats_available }} ghế</p>
                                     </div>
                                     <div class="col-6 col-md-2 text-center">
-                                        <p class="h5 fw-bold mb-0">{{ $flight->departure }}</p>
+                                        <p class="h5 fw-bold mb-0">{{ $flight->origin }}</p>
                                         <p class="small text-secondary mb-0">Điểm đi</p>
                                     </div>
                                     <div class="col-6 col-md-2 text-center">

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('jobs', function (Blueprint $table) {
             $table->id();
-            $table->string('queue')->index();
+            $table->string('queue');
             $table->longText('payload');
             $table->unsignedSmallInteger('attempts');
             $table->unsignedInteger('reserved_at')->nullable();
@@ -43,7 +43,7 @@ return new class extends Migration
             $table->longText('exception');
             $table->timestamp('failed_at')->useCurrent();
 
-            $table->index(['connection', 'queue', 'failed_at']);
+           
         });
     }
 
