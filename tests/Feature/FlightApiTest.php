@@ -94,4 +94,50 @@ class FlightApiTest extends TestCase
             ->assertJsonPath('data.flight_number', 'VN201')
             ->assertJsonPath('data.cabin_class', 'economy');
     }
+
+    public function test_featured_flights_include_only_upcoming_flights_with_available_seats_ordered_by_price(): void
+    {
+        Flight::create([
+            'flight_number' => 'VN301',
+            'origin' => 'Hà Nội (HAN)',
+            'destination' => 'Đà Nẵng (DAD)',
+            'departure_time' => now()->addDays(2),
+            'price' => 1350000,
+            'cabin_class' => 'economy',
+            'seats_available' => 12,
+        ]);
+        Flight::create([
+            'flight_number' => 'VN302',
+            'origin' => 'Hà Nội (HAN)',
+            'destination' => 'Đà Nẵng (DAD)',
+            'departure_time' => now()->addDay(),
+            'price' => 990000,
+            'cabin_class' => 'economy',
+            'seats_available' => 0,
+        ]);
+        Flight::create([
+            'flight_number' => 'VN303',
+            'origin' => 'Hà Nội (HAN)',
+            'destination' => 'Đà Nẵng (DAD)',
+            'departure_time' => now()->subDay(),
+            'price' => 850000,
+            'cabin_class' => 'economy',
+            'seats_available' => 12,
+        ]);
+        Flight::create([
+            'flight_number' => 'VN304',
+            'origin' => 'Hà Nội (HAN)',
+            'destination' => 'Đà Nẵng (DAD)',
+            'departure_time' => now()->addDays(3),
+            'price' => 1100000,
+            'cabin_class' => 'economy',
+            'seats_available' => 6,
+        ]);
+
+        $this->getJson('/api/flights/featured')
+            ->assertOk()
+            ->assertJsonCount(2, 'data')
+            ->assertJsonPath('data.0.flight_number', 'VN304')
+            ->assertJsonPath('data.1.flight_number', 'VN301');
+    }
 }

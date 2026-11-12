@@ -7,11 +7,25 @@ use App\Http\Resources\FlightResource;
 use App\Models\Flight;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Collection;
 use Illuminate\Validation\Rule;
 
 class FlightSearchController extends Controller
 {
+    public function featured(): AnonymousResourceCollection
+    {
+        return FlightResource::collection(
+            Flight::query()
+                ->where('departure_time', '>=', now())
+                ->where('seats_available', '>', 0)
+                ->orderBy('price')
+                ->orderBy('departure_time')
+                ->limit(6)
+                ->get(),
+        );
+    }
+
     public function __invoke(Request $request): JsonResponse
     {
         $filters = $request->validate([
