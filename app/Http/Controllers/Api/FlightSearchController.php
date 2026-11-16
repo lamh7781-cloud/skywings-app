@@ -28,6 +28,14 @@ class FlightSearchController extends Controller
 
     public function __invoke(Request $request): JsonResponse
     {
+        $request->merge([
+            'origin' => $request->input('origin', $request->input('from')),
+            'destination' => $request->input('destination', $request->input('to')),
+            'departure_date' => $request->input('departure_date', $request->input('date')),
+            'passengers' => $request->input('passengers', 1),
+            'cabin_class' => $request->input('cabin_class', 'economy'),
+        ]);
+
         $filters = $request->validate([
             'origin' => ['required', 'string', 'max:191'],
             'destination' => ['required', 'string', 'max:191', 'different:origin'],

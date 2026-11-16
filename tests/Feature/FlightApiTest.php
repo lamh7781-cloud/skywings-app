@@ -79,6 +79,31 @@ class FlightApiTest extends TestCase
             ->assertJsonValidationErrors(['return_date']);
     }
 
+    public function test_search_accepts_from_to_and_date_query_parameters_with_default_passenger_and_cabin_class(): void
+    {
+        $this->travelTo('2026-11-16 12:00:00');
+        $flight = Flight::create([
+            'flight_number' => 'VN151',
+            'origin' => 'Hà Nội (HAN)',
+            'destination' => 'Đà Nẵng (DAD)',
+            'departure_time' => '2026-12-01 07:30:00',
+            'price' => 1250000,
+            'cabin_class' => 'economy',
+            'seats_available' => 4,
+        ]);
+
+        $this->getJson('/api/flights?'.http_build_query([
+            'from' => 'Hà Nội',
+            'to' => 'Đà Nẵng',
+            'date' => '2026-12-01',
+        ]))
+            ->assertOk()
+            ->assertJsonPath('data.outbound.0.id', $flight->id)
+            ->assertJsonPath('data.outbound.0.flight_number', 'VN151')
+            ->assertJsonPath('meta.passengers', 1)
+            ->assertJsonPath('meta.cabin_class', 'economy');
+    }
+
     public function test_flight_details_are_available_as_json(): void
     {
         $flight = Flight::create([

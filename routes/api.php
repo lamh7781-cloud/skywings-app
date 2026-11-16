@@ -12,6 +12,7 @@ Route::middleware('throttle:10,1')->group(function () {
     Route::post('/login', [AuthController::class, 'login']);
 });
 
+Route::get('/flights', FlightSearchController::class);
 Route::get('/flights/search', FlightSearchController::class);
 Route::get('/flights/featured', [FlightSearchController::class, 'featured'])->name('flights.featured');
 Route::get('/flights/{flight}', fn (Flight $flight): FlightResource => FlightResource::make($flight));
